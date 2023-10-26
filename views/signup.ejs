@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+  </head>
+  <body>
+    <header><%- include("partials/header.ejs") %></header>
+    <main class="container">
+      <form class="mt-5 mx-auto w-25" action="/views/signup" method="POST">
+        <h4>
+          Sign up to get started. We have kept the sign up process simple.
+        </h4>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Input username here"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            placeholder="Input email here"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Input password here"
+          />
+          <div class="form-text">Your password is secured with encryption.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign up</button>
+      </form>
+    </main>
+    <footer><%- include("partials/footer.ejs") %></footer>
+  </body>
+</html>
