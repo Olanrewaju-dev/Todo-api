@@ -39,12 +39,14 @@ router.post(
   controller.postRequestTodoCreate
 );
 
+router.post("/todo", middleware.getCookie, controller.postRequestQueryTodoList);
+
 router.post("/signup", controller.postRequestSignup);
 
 router.post("/login", controller.postRequestToLogin);
 
 // =============================== UPDATE ROUTES ===================================//
 
-router.post("/todo/:id", controller.updateRequest);
+router.post("/todo/:id", middleware.getCookie, controller.updateRequest);
 
 module.exports = router;

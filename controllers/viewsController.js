@@ -16,7 +16,14 @@ const getRequestToSignUp = async (req, res) => {
 
 const getRequestTodo = async (req, res) => {
   try {
-    const tasks = await TaskModel.find({ owner: res.locals.user._id });
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const tasks = await TaskModel.find({ owner: res.locals.user._id })
+      .limit(limit)
+      .sort("1")
+      .skip(page * limit);
+
     res.render("todo", {
       user: res.locals.user,
       tasks,
@@ -117,6 +124,39 @@ const updateRequest = async (req, res) => {
   }
 };
 
+const postRequestQueryTodoList = async (req, res) => {
+  try {
+    const filter = req.body.status;
+
+    if (filter) {
+      const tasks = await TaskModel.find({
+        owner: res.locals.user._id,
+        status: filter,
+      });
+
+      if (tasks) {
+        res.render("todo", {
+          user: res.locals.user,
+          tasks,
+        });
+      }
+    } else {
+      const tasks = await TaskModel.find({
+        owner: res.locals.user._id,
+      });
+
+      res.render("todo", {
+        user: res.locals.user,
+        tasks,
+        error: "Error, no filter input",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.redirect("/views/todo");
+  }
+};
+
 // exporting controller functions //
 module.exports = {
   getRequestToLogin,
@@ -124,6 +164,7 @@ module.exports = {
   getRequestTodo,
   getRequestTodoCreate,
   getRequestLogout,
+  postRequestQueryTodoList,
   postRequestToLogin,
   postRequestTodoCreate,
   postRequestSignup,

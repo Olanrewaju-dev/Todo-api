@@ -4,7 +4,18 @@
     <%- include("partials/head.ejs") %>
   </head>
   <body>
-    <header><%- include("partials/header.ejs") %></header>
+    <header class="container">
+      <nav class="navbar navbar-expand-custom navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Yásè</a>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/views/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <main class="container">
       <div class="mt-5 mx-auto w-75 text-center">
         <h1>Welcome! 👋🏾</h1>

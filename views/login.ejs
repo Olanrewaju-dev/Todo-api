@@ -4,9 +4,15 @@
     <%- include("partials/head.ejs") %>
   </head>
   <body>
-    <header><%- include("partials/header.ejs") %></header>
+    <header class="container">
+      <nav class="navbar navbar-expand-custom navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Yásè</a>
+        </div>
+      </nav>
+    </header>
     <main class="container">
-      <form class="mt-5 mx-auto w-25" action="/views/login" method="POST">
+      <form class="mt-5 mx-auto w-80" action="/views/login" method="POST">
         <h4>Login</h4>
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>

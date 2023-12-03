@@ -19,7 +19,7 @@ const Login = async ({ email, password }) => {
 
   if (!userPassword) {
     return {
-      message: "Email or passwor not correct!", // handling error if password not found.
+      message: "Email or password not correct!", // handling error if password not found.
       code: 401,
     };
   }

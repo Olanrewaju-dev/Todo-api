@@ -4,8 +4,23 @@
     <%- include("partials/head") %>
   </head>
   <body>
-    <header><%- include("partials/header") %></header>
-
+    <header class="container">
+      <nav class="navbar navbar-expand-custom navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/views/todo/">Yásè</a>
+          <ul class="nav">
+            <% if(user) {%>
+            <li class="nav-item d-none">
+              <a class="nav-link" href="/views/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/views/logout">Logout</a>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <div class="container mt-5 mb-3 mx-auto w-auto">
       <div>
         <% if(user) {%>
@@ -16,63 +31,84 @@
           <a class="btn btn-primary" href="/views/todo/create">Add Task</a>
 
           <div class="input-group mt-3 mb-3" style="width: max-content">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="statusFilter">Status</label>
-            </div>
-            <select class="form-select" id="statusFilter">
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="pending">Pending</option>
-            </select>
+            <form action="/views/todo?" method="POST">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="filter task status"
+                name="status"
+              />
+              <button class="input-group-append btn" type="submit">
+                <span class="input-group-text">Filter</span>
+              </button>
+              <% if (locals.error) { %>
+              <p><%= error %></p>
+              <% } %>
+            </form>
           </div>
         </div>
       </div>
-      <table class="table table-striped table-responsive">
-        <thead>
-          <tr>
-            <th scope="col">Task title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Task title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <% tasks.forEach(function(task){ %>
-          <tr>
-            <td><%= task.title %></td>
-            <td><%= task.description %></td>
-            <td><%= task.status %></td>
-            <td>
-              <div class="row">
-                <form
-                  class="col"
-                  action="/views/todo/<%= task._id %>"
-                  method="PUT"
-                >
-                  <input type="hidden" value="finished" name="update" />
-                  <button class="btn btn-success" formmethod="post">
-                    Finish
-                  </button>
-                </form>
+          <tbody>
+            <% tasks.forEach(function(task){ %>
+            <tr>
+              <td><%= task.title %></td>
+              <td><%= task.description %></td>
+              <td><%= task.status %></td>
+              <td>
+                <div class="row">
+                  <form
+                    class="col"
+                    action="/views/todo/<%= task._id %>"
+                    method="POST"
+                  >
+                    <input type="hidden" value="finished" name="update" />
+                    <button class="btn btn-success" formmethod="post">
+                      Finish
+                    </button>
+                  </form>
 
-                <form
-                  class="col"
-                  action="/views/todo/<%= task._id %>"
-                  method="POST"
-                >
-                  <input type="hidden" value="delete" name="delete" />
-                  <button class="btn btn-danger" formmethod="post">
-                    Delete
-                  </button>
-                </form>
-              </div>
-            </td>
-          </tr>
+                  <form
+                    class="col mt-1"
+                    action="/views/todo/<%= task._id %>"
+                    method="POST"
+                  >
+                    <input type="hidden" value="delete" name="delete" />
+                    <button class="btn btn-danger" formmethod="post">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
 
-          <%})%>
-        </tbody>
-      </table>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button class="btn btn-primary">Prev.</button>
+          </div>
+
+          <div class="col d-flex">
+            <button class="btn btn-success">Next</button>
+          </div>
+        </div>
+      </div>
     </div>
+    <footer><%- include("partials/footer.ejs") %></footer>
   </body>
 </html>

@@ -9,14 +9,11 @@ const getCookie = async (req, res, next) => {
       const decodedValue = await jwt.verify(token, process.env.JWT_SECRET);
 
       res.locals.user = decodedValue;
-
       next();
     } catch (error) {
       console.log(error.message);
       res.redirect("login");
     }
-  } else {
-    res.render("index");
   }
 };
 
