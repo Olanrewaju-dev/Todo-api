@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+  </head>
+  <body>
+    <header class="container">
+      <nav class="navbar navbar-expand-custom navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Yásè</a>
+          <!-- <ul class="nav">
+            <li class="nav-item d-none">
+              <a class="nav-link" href="/views/login">Login</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/views/logout">Logout</a>
+            </li>
+            
+          </ul> -->
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <div class="mt-5 mb-5 mx-auto w-80">
+        <h1 class="text-danger">Error: <%= error.message %></h1>
+        <a href="/" class="btn btn-primary">Go to homepage</a>
+      </div>
+    </main>
+    <footer><%- include("partials/footer.ejs") %></footer>
+  </body>
+</html>

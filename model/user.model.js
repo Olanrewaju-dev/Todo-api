@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const shortId = require("short-uuid");
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -17,7 +16,8 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  created_at: { type: Date },
+  created_at: { type: Date, defaultValue: Date.now().toString() },
+  updated_at: { type: Date, defaultValue: Date.now().toString() },
 });
 
 // before save

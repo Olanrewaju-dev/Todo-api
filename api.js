@@ -17,11 +17,14 @@ app.get("/", async (req, res) => {
   res.render("index.ejs", { user: res.locals.user || null });
 });
 
+// Catch-all route for undefined routes
 app.get("*", (req, res) => {
-  res.status(404).json({
-    message: "Route not found", // route not found error handling
-    data: [],
-  });
+  res.status(404).render("error.ejs", { error: "Page not found" });
+});
+
+app.use((error, res) => {
+  console.error(error.stack); // log the error
+  res.render("error.ejs", { error: error.message });
 });
 
 module.exports = app;

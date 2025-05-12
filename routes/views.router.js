@@ -1,7 +1,10 @@
 const express = require("express");
 
 //requiring middlewares
-const middleware = require("../middlewares/userCookieValidation");
+const {
+  getCookie,
+  signUpUserInputValidation,
+} = require("../middlewares/validation");
 const cookieParser = require("cookie-parser");
 
 // requiring controller
@@ -21,32 +24,24 @@ router.get("/login", controller.getRequestToLogin);
 
 router.get("/signup", controller.getRequestToSignUp);
 
-router.get("/todo", middleware.getCookie, controller.getRequestTodo);
+router.get("/todo", getCookie, controller.getRequestTodo);
 
-router.get(
-  "/todo/create",
-  middleware.getCookie,
-  controller.getRequestTodoCreate
-);
+router.get("/todo/create", getCookie, controller.getRequestTodoCreate);
 
-router.get("/logout", middleware.getCookie, controller.getRequestLogout);
+router.get("/logout", getCookie, controller.getRequestLogout);
 
 // =============================== POST ROUTES ===================================//
 
-router.post(
-  "/todo/create",
-  middleware.getCookie,
-  controller.postRequestTodoCreate
-);
+router.post("/todo/create", getCookie, controller.postRequestTodoCreate);
 
-router.post("/todo", middleware.getCookie, controller.postRequestQueryTodoList);
+router.post("/todo", getCookie, controller.postRequestQueryTodoList);
 
-router.post("/signup", controller.postRequestSignup);
+router.post("/signup", signUpUserInputValidation, controller.postRequestSignup);
 
 router.post("/login", controller.postRequestToLogin);
 
 // =============================== UPDATE ROUTES ===================================//
 
-router.post("/todo/:id", middleware.getCookie, controller.updateRequest);
+router.post("/todo/:id", getCookie, controller.updateRequest);
 
 module.exports = router;

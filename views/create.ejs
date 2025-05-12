@@ -9,11 +9,10 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/views/todo/">Yásè</a>
           <ul class="nav">
-            <% if(user) {%>
             <li class="nav-item d-none">
               <a class="nav-link" href="/views/login">Login</a>
             </li>
-
+            <% if(user) {%>
             <li class="nav-item">
               <a class="nav-link" href="/views/logout">Logout</a>
             </li>

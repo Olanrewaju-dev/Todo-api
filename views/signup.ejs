@@ -8,6 +8,7 @@
       <nav class="navbar navbar-expand-custom navbar-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Yásè</a>
+
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="/views/login">Login</a>
@@ -21,7 +22,7 @@
       </nav>
     </header>
     <main class="container">
-      <form class="mt-5 mx-auto w-25" action="/views/signup" method="POST">
+      <form class="mt-5 mx-auto w-full" action="/views/signup" method="POST">
         <h4>
           Sign up to get started. We have kept the sign up process simple.
         </h4>
@@ -51,8 +52,25 @@
             name="password"
             placeholder="Input password here"
           />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Repeat password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Input password here"
+          />
           <div class="form-text">Your password is secured with encryption.</div>
         </div>
+        <% if (locals.error) { %>
+        <p class="text-danger"><%= error %></p>
+        <script>
+          setTimeout(() => {
+            document.querySelector(".text-danger").style.display = "none";
+          }, 5000);
+        </script>
+        <% } %>
         <button type="submit" class="btn btn-primary">Sign up</button>
       </form>
     </main>

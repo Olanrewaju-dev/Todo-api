@@ -38,18 +38,20 @@ const getRequestTodoCreate = async (req, res) => {
 };
 
 //===== POST CONTROLLERS BELOW =====//
-const postRequestToLogin = async (req, res) => {
-  const response = await userLoginServices.Login({
-    email: req.body.email,
-    password: req.body.password,
-  });
+const postRequestToLogin = async (req, res, next) => {
+  try {
+    const response = await userLoginServices.Login({
+      email: req.body.email,
+      password: req.body.password,
+    });
 
-  if (response.code === 200) {
-    // set cookie
-    res.cookie("jwt", response.data.token);
-    res.redirect("/views/todo");
-  } else {
-    res.redirect("/views/login");
+    if (response.code === 200) {
+      // set cookie
+      res.cookie("jwt", response.data.token);
+      res.redirect("/views/todo");
+    }
+  } catch (error) {
+    res.render("login", { error: error.message });
   }
 };
 

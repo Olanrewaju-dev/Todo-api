@@ -16,6 +16,7 @@ const TaskSchema = new Schema({
     required: true,
   },
   created_at: { type: Date, defaultValue: Date.now().toString() },
+  updated_at: { type: Date, defaultValue: Date.now().toString() },
 
   // one-to-many association with task model
   owner: [
