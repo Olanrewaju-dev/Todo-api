@@ -8,6 +8,12 @@
       <nav class="navbar navbar-expand-custom navbar-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Yásè</a>
+
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/views/signup">Sign up</a>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
@@ -37,6 +43,11 @@
         </div>
         <% if (locals.error) { %>
         <p class="text-danger"><%= error %></p>
+        <script>
+          setTimeout(() => {
+            document.querySelector(".text-danger").style.display = "none";
+          }, 5000);
+        </script>
         <% } %>
         <button type="submit" class="btn btn-success">Login</button>
       </form>

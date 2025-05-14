@@ -29,7 +29,7 @@ const getRequestTodo = async (req, res) => {
       tasks,
     });
   } catch (error) {
-    console.log(error.message);
+    res.render("error", { error: error.message });
   }
 };
 
@@ -39,19 +39,20 @@ const getRequestTodoCreate = async (req, res) => {
 
 //===== POST CONTROLLERS BELOW =====//
 const postRequestToLogin = async (req, res, next) => {
-  try {
-    const response = await userLoginServices.Login({
-      email: req.body.email,
-      password: req.body.password,
-    });
+  const response = await userLoginServices.Login({
+    email: req.body.email,
+    password: req.body.password,
+  });
 
-    if (response.code === 200) {
-      // set cookie
-      res.cookie("jwt", response.data.token);
-      res.redirect("/views/todo");
-    }
-  } catch (error) {
-    res.render("login", { error: error.message });
+  if (response.code === 200) {
+    // set cookie
+    res.cookie("jwt", response.data.token);
+    res.redirect("/views/todo");
+  }
+
+  if (response.code === 401) {
+    const message = response.message;
+    res.render("login", { error: message });
   }
 };
 
@@ -75,6 +76,7 @@ const postRequestTodoCreate = async (req, res) => {
 };
 
 const postRequestSignup = async (req, res) => {
+  console.log(req.body);
   const response = await userLoginServices.CreateUser({
     email: req.body.email,
     password: req.body.password,
@@ -85,8 +87,15 @@ const postRequestSignup = async (req, res) => {
     // set cookie
     res.cookie("jwt", response.token);
     res.redirect("/views/login");
-  } else {
-    res.render("signup");
+  }
+  if (response.code === 409) {
+    const message = response.message;
+    res.render("signup", { error: message });
+  }
+
+  if (response.code === 400) {
+    const message = response.message;
+    res.render("signup", { error: message });
   }
 };
 

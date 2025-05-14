@@ -51,8 +51,8 @@ const CreateUser = async ({ email, password, username }) => {
 
   if (existingUser) {
     return {
-      message: "User already exist", // handling error if user email already exists.
-      code: 404,
+      message: "User already exists", // handling error if user email already exists.
+      code: 409, // Conflict error code
     };
   }
 

@@ -10,13 +10,15 @@
           <a class="navbar-brand" href="/">Yásè</a>
 
           <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/views/login">Login</a>
-            </li>
-
+            <% if (locals.user) { %>
             <li class="nav-item">
               <a class="nav-link" href="/views/logout">Logout</a>
             </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/views/login">Login</a>
+            </li>
+            <% } %>
           </ul>
         </div>
       </nav>
@@ -52,17 +54,9 @@
             name="password"
             placeholder="Input password here"
           />
+          <p class="form-text">Your password is secured with encryption.</p>
         </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Repeat password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            placeholder="Input password here"
-          />
-          <div class="form-text">Your password is secured with encryption.</div>
-        </div>
+
         <% if (locals.error) { %>
         <p class="text-danger"><%= error %></p>
         <script>
